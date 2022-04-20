@@ -3,7 +3,7 @@ FROM alpine:3.8
 ENV KUBECTL_VERSION=1.23.0
 ENV IBMCLOUDCLI_VERSION=2.6.0
 
-RUN useradd -G root -d /home/nonroot -u 1000 -g 1000 nonroot
+RUN  adduser -G root -D -u 1000 -g 1000 nonroot
 
 WORKDIR "/home/nonroot"
 
