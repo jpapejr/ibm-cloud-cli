@@ -1,7 +1,7 @@
-FROM alpine:3.8
+FROM --platform=linux/amd64 alpine:3.8 
 
 ENV KUBECTL_VERSION=1.23.0
-ENV IBMCLOUDCLI_VERSION=2.6.0
+ENV IBMCLOUD_VERSION=2.6.0
 
 RUN  adduser -G root -D -u 1000 -g 1000 nonroot
 
@@ -10,9 +10,9 @@ WORKDIR "/home/nonroot"
 RUN apk update && \
     apk add --no-cache bash curl git && \
     mkdir /home/nonroot/bin && \
-    curl https://public.dhe.ibm.com/cloud/bluemix/cli/bluemix-cli/${IBMCLOUDCLI_VERSION}/IBM_Cloud_CLI_${IBMCLOUDCLI_VERSION}_amd64.tar.gz -o out.tar.gz && \
+    curl -k https://download.clis.cloud.ibm.com/ibm-cloud-cli/${IBMCLOUD_VERSION}/IBM_Cloud_CLI_${IBMCLOUD_VERSION}_amd64.tar.gz -o out.tar.gz && \
     tar xvzf out.tar.gz && \
-    ./Bluemix_CLI/install && \
+    ./Bluemix_CLI/install_bluemix_cli && \
     ibmcloud plugin install container-service -r Bluemix && \
     ibmcloud plugin update container-registry -r Bluemix && \
     ibmcloud plugin install vpc-infrastructure -r Bluemix && \
