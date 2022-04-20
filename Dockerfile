@@ -26,7 +26,9 @@ RUN echo 'export PATH="$PATH:/root/bin"' >> /home/nonroot/.bashrc
 RUN echo 'cat /etc/motd' >> /home/nonroot/.bashrc
 RUN echo 'Thank you for using the IBM Cloud-Native Docker Container. In your first login, we suggest you ibmcloud login to authenticate against the IBM cloud API.' > /etc/motd
 
-RUN chown -R 1000:1000 /home/nonroot
+RUN chown -R 1000:0 /home/nonroot
+RUN chmod -R g+rwx /home/nonroot
+ENV HOME /home/nonroot
 USER 1000
 
 ENTRYPOINT ["bash"]
